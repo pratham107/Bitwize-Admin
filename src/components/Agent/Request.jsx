@@ -1,7 +1,8 @@
 import { Table, Alert, Button } from 'antd';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const Request = () => {
+const Request = ({setIsRefresh}) => {
   const [request, setRequest] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -42,6 +43,7 @@ const Request = () => {
 
       if (result.status && result.message === 'Success') {
         setAlert({ type: 'success', message: isApproved === 1 ? 'Agent Approved' : 'Agent Rejected' });
+        setIsRefresh(prev => !prev)
       } else {
         setAlert({ type: 'error', message: 'Something Went Wrong' });
       }
@@ -106,6 +108,10 @@ const Request = () => {
       />
     </>
   );
+};
+
+Request.propTypes = {
+  setIsRefresh:PropTypes.func.isRequired,
 };
 
 export default Request;

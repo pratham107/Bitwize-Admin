@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Input } from 'antd';
 import AgentCard from './AgentCard';
+import PropTypes from 'prop-types';
 
 const { Search } = Input;
 
-const Searchs = () => {
+const Searchs = ({isRefresh}) => {
   const [isLoading, setIsLoading] = useState(true); // Fix: Properly initializing isLoading state
   const [agents, setAgents] = useState([]);
   const [filteredAgents, setFilteredAgents] = useState([]);
@@ -29,7 +30,7 @@ const Searchs = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isRefresh]);
 
   const onSearch = (value) => {
     setSearchQuery(value);
@@ -81,5 +82,10 @@ const Searchs = () => {
     </div>
   );
 };
+
+Searchs.propTypes = {
+    isRefresh: PropTypes.bool.isRequired,
+    // setIsRefresh:PropTypes.func.isRequired,
+  };
 
 export default Searchs;

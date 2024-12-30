@@ -8,6 +8,7 @@ import Request from './Request';
 
 const Agent = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isRefresh, setIsRefresh] = useState(false);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -21,12 +22,18 @@ const Agent = () => {
     {
       key: '1',
       label: 'Search',
-      children: <Search />,  // Use 'children' with lowercase 'c'
+      children: <Search 
+      isRefresh={isRefresh}
+      setIsRefresh={setIsRefresh}
+      />,  // Use 'children' with lowercase 'c'
     },
     {
       key: '2',
       label: 'Request', 
-      children: <Request />, // You can add content for the "Request" tab here
+      children: <Request 
+      isRefresh={isRefresh}
+      setIsRefresh={setIsRefresh}
+      />, // You can add content for the "Request" tab here
     },
   ];    
 
@@ -40,6 +47,8 @@ const Agent = () => {
       </div>
       <Modal width={1000} title="Add Agent" open={isModalOpen} onCancel={handleCancel}>
         <AddAgent
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
          setIsModalOpen={setIsModalOpen}
         />
       </Modal>

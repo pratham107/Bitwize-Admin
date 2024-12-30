@@ -5,7 +5,7 @@ import { Alert } from 'antd';
 
 const { Option } = Select;
 
-const AddAgent = ({ setIsModalOpen }) => {
+const AddAgent = ({ setIsModalOpen, setIsRefresh }) => {
     const [form] = Form.useForm();
     const [imagePreview, setImagePreview] = useState({ image: null, gstProof: null, addressProof: null });
     const [alert, setAlert] = useState({
@@ -63,12 +63,15 @@ const AddAgent = ({ setIsModalOpen }) => {
               setTimeout(()=>{
                 setIsModalOpen(false);
                 form.resetFields();
+                
                 setAlert({
                     message: "",
                     description: "",
                     type: "",
                   });
               },2000)
+
+              setIsRefresh(prev => !prev);
 
         } else {
             setAlert({
@@ -336,6 +339,7 @@ const AddAgent = ({ setIsModalOpen }) => {
 };
 AddAgent.propTypes = {
     setIsModalOpen: PropTypes.func.isRequired,
+    setIsRefresh:PropTypes.func.isRequired,
   };
 
 export default AddAgent;
